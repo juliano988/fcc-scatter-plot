@@ -1,6 +1,3 @@
-$graphic-height: 65vh;
-$graphic-width: 80vw;
-
 .graphicDiv{
     display: flex;
     justify-content: center;
