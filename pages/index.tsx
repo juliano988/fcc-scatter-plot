@@ -37,8 +37,6 @@ function Graphic(props: GraphicProps): JSX.Element {
   const leftLabelWidth = 45;
   const circlesRadius = 5;
 
-  
-
   useEffect(function () {
 
     const svgWidth = graphicDivRef.current.clientWidth
@@ -129,7 +127,7 @@ function Graphic(props: GraphicProps): JSX.Element {
         allowHTML: true,
         placement: 'right-end',
         content: ReactDOMServer.renderToStaticMarkup(
-          <div style={{ textAlign: 'left', fontSize: '1rem', backgroundColor: (infos.Doping ? 'hsla(40, 100%, 50%, 0.8)' : 'hsla(250, 100%, 50%, 0.8)'), maxWidth: '300px', padding: '3px', borderRadius: '3px' }}>
+          <div style={{ color: 'black', textAlign: 'left', fontSize: '1rem', backgroundColor: (infos.Doping ? 'hsla(40, 100%, 50%, 0.8)' : 'hsla(250, 100%, 50%, 0.8)'), maxWidth: '300px', padding: '3px', borderRadius: '3px' }}>
             <p style={{ margin: '0px' }}><strong>Name: </strong>{infos.Name}, {infos.Nationality}</p>
             <p style={{ margin: '0px' }}><strong>Placement: </strong>{infos.Place}º, {infos.Year}</p>
             <p style={{ margin: '0px' }}><strong>Time: </strong>{infos.Time}min</p>
@@ -156,8 +154,8 @@ function Graphic(props: GraphicProps): JSX.Element {
   }, [])
 
   return (
-    <div style={{width: '100%', height: '100%', padding: (offset + 10), paddingBottom: (offset + 35 + 10), paddingLeft: (leftLabelWidth + 5), color: 'black', backgroundColor: 'white' }}>
-      <div ref={graphicDivRef} style={{width: '100%', height: '100%' }} />
+    <div style={{ width: '100%', height: '100%', padding: (offset + 10), paddingBottom: (offset + 35 + 10), paddingLeft: (leftLabelWidth + 5), color: 'black', backgroundColor: 'white' }}>
+      <div ref={graphicDivRef} style={{ width: '100%', height: '100%' }} />
     </div>
   )
 }
