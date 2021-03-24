@@ -13,6 +13,9 @@ $graphic-width: 80vw;
 }
 
 .graphicClass{
+    //Para evitar bugs...
+    width: 100px;
+    height: 100px;
     width: $graphic-width;
     height: $graphic-height;
 }
