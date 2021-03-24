@@ -39,8 +39,8 @@ function Graphic(props: GraphicProps): JSX.Element {
 
   useEffect(function () {
 
-    const svgWidth = graphicDivRef.current.clientWidth
-    const svgHeight = graphicDivRef.current.clientHeight;
+    const svgWidth = graphicDivRef.current.offsetWidth
+    const svgHeight = graphicDivRef.current.offsetHeight;
 
     const minX = Math.min(...props.data.map(function (arg) { return arg.Year }))
     const maxX = Math.max(...props.data.map(function (arg) { return arg.Year }))
