@@ -11,6 +11,4 @@
   
 export interface GraphicProps{
     data: Array<Athletes>,
-    width: string,
-    height: string,
   }

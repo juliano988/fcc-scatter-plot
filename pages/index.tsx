@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { useEffect, useRef, useState } from 'react'
 import * as d3 from "d3";
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.scss'
 import { GraphicProps } from '../customInterfaces'
 import tippy, { Instance, Props } from 'tippy.js';
 import ReactDOMServer from 'react-dom/server';
@@ -16,7 +16,11 @@ export default function Home({ data }): JSX.Element {
       <div>
         <h1>Doping in Professional Bicycle Racing</h1>
         <h3>35 Fastest times up Alpe d'Huez</h3>
-        <Graphic data={data} width='60vw' height='60vh' />
+        <div className={styles.graphicDiv}>
+          <div className={styles.graphicClass}>
+            <Graphic data={data} />
+          </div>
+        </div>
       </div>
     </div>
   )
@@ -29,6 +33,7 @@ function Graphic(props: GraphicProps): JSX.Element {
   const graphicDivRef = useRef<HTMLDivElement>(null);
 
   const offset = 25;
+  const topLabelWidth = 10;
   const leftLabelWidth = 45;
   const circlesRadius = 5;
 
@@ -51,17 +56,21 @@ function Graphic(props: GraphicProps): JSX.Element {
     const svg = d3.select(graphicDivRef.current)
       .append('svg')
       .attr('width', svgWidth + offset * 2 + leftLabelWidth)
-      .attr('height', svgHeight + offset * 3)
+      .attr('height', svgHeight + offset * 3 + topLabelWidth)
+      .attr('transform', 'translate(' + -leftLabelWidth + ',' + -offset + ')')
 
     const xAxis = svg.append('g')
       .call(d3.axisTop(scaleX).tickFormat(d3.format(".0f"))
         .tickSize(-svgHeight)
         .tickPadding(5))
-      .attr('transform', 'translate(' + (offset + leftLabelWidth) + ',' + offset + ')')
+      .attr('transform', 'translate(' + (offset + leftLabelWidth) + ',' + (offset + topLabelWidth) + ')')
       .attr('stroke-dasharray', "2")
       .attr('stroke-opacity', 0.5)
       .attr('font-size', '1rem')
-      .select('path').remove()
+
+    svgWidth <= 600 && xAxis.selectAll('text').attr('transform', 'translate(15,' + (-topLabelWidth) + ') rotate(-45)')
+
+    xAxis.select('path').remove()
 
     const yAxis = svg.append('g')
       .call(d3.axisLeft(d3.scaleTime().domain([minSecDate, maxSecDate]).range([circlesRadius, svgHeight - circlesRadius]))
@@ -76,7 +85,7 @@ function Graphic(props: GraphicProps): JSX.Element {
       .select('path').remove()
 
     const subtitle = svg.append('g')
-      .attr('transform', 'translate(' + (leftLabelWidth + svgWidth - 210) + ',' + (svgHeight + offset + 10) + ')')
+      .attr('transform', 'translate(' + (leftLabelWidth + svgWidth - 210) + ',' + (svgHeight + offset + topLabelWidth * 2) + ')')
 
     subtitle.append('text')
       .style('font-size', '1rem')
@@ -103,7 +112,7 @@ function Graphic(props: GraphicProps): JSX.Element {
       .style('stroke', 'black')
 
     const circles = svg.append('g')
-      .attr('transform', 'translate(' + (offset + leftLabelWidth) + ',' + offset + ')')
+      .attr('transform', 'translate(' + (offset + leftLabelWidth) + ',' + (offset + topLabelWidth) + ')')
       .selectAll('circle')
       .data(props.data).enter()
       .append('circle')
@@ -129,8 +138,8 @@ function Graphic(props: GraphicProps): JSX.Element {
     })
 
     return function () {
-      tippyInstanceArr.map(function (elem) { return elem.unmount() })
       svg.remove();
+      tippyInstanceArr.map(function (elem) { return elem.unmount() })
     }
   }, [forceRender])
 
@@ -145,8 +154,8 @@ function Graphic(props: GraphicProps): JSX.Element {
   }, [])
 
   return (
-    <div style={{ padding: offset }}>
-      <div ref={graphicDivRef} style={{ width: props.width, height: props.height, margin: 'auto' }} />
+    <div style={{width: '100%', height: '100%', padding: (offset + 10), paddingBottom: (offset + 35 + 10), paddingLeft: (leftLabelWidth + 5), color: 'black', backgroundColor: 'white' }}>
+      <div ref={graphicDivRef} style={{width: '100%', height: '100%' }} />
     </div>
   )
 }
