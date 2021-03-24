@@ -1,15 +1,18 @@
+$graphic-height: 65vh;
+$graphic-width: 80vw;
+
 .graphicDiv{
     display: flex;
     justify-content: center;
     align-items: center;
     margin: auto;
-    width: 85vw;
-    height: 70vh;
+    width: $graphic-width + 5vw;
+    height: $graphic-height + 5vh;
     background-color: white;
     box-shadow: 5px 5px 10px 5px rgba(0,0,0,0.6);
 }
 
 .graphicClass{
-    width: 80vw;
-    height: 65vh;
+    width: $graphic-width;
+    height: $graphic-height;
 }
