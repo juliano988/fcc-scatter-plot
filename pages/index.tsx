@@ -37,6 +37,8 @@ function Graphic(props: GraphicProps): JSX.Element {
   const leftLabelWidth = 45;
   const circlesRadius = 5;
 
+  
+
   useEffect(function () {
 
     const svgWidth = graphicDivRef.current.clientWidth
