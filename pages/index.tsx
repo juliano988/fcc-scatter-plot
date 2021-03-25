@@ -138,6 +138,7 @@ function Graphic(props: GraphicProps): JSX.Element {
     })
 
     return function () {
+      svg.remove();
       tippyInstanceArr.map(function (elem) { return elem.unmount() })
     }
   }, [forceRender])
@@ -147,9 +148,6 @@ function Graphic(props: GraphicProps): JSX.Element {
       setForceRender(Math.random())
     }
     window.addEventListener('resize', forceRenderFunc)
-    return function () {
-      window.removeEventListener('resize', forceRenderFunc)
-    }
   }, [])
 
   return (
