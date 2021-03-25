@@ -6,13 +6,13 @@ $graphic-width: 80vw;
     justify-content: center;
     align-items: center;
     margin: auto;
-    width: calc(80vw + 25px);
-    height: calc(65vh + 25px);
+    width: $graphic-width + 5vw;
+    height: $graphic-height + 5vh;
     background-color: white;
     box-shadow: 5px 5px 10px 5px rgba(0,0,0,0.6);
 }
 
 .graphicClass{
-    width: calc(80vw + 10px);
-    height: calc(65vh + 10px);
+    width: $graphic-width;
+    height: $graphic-height;
 }

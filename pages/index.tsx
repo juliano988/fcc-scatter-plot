@@ -154,8 +154,8 @@ function Graphic(props: GraphicProps): JSX.Element {
   }, [])
 
   return (
-    <div style={{ width: '100%', height: '100%', padding: (offset + 10), paddingBottom: (offset + 35 + 10), paddingLeft: (leftLabelWidth + 5), color: 'black', backgroundColor: 'white' }}>
-      <div ref={graphicDivRef} style={{ width: '100%', height: '100%' }} />
+    <div style={{ width: '100%', height: '100%', padding: offset, paddingBottom: (offset + 35), paddingLeft: (leftLabelWidth + 5), color: 'black', backgroundColor: 'white' }}>
+      <div ref={graphicDivRef} style={{ width: '95%', height: '95%' }} />
     </div>
   )
 }
