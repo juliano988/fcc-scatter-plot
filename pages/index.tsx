@@ -4,6 +4,7 @@ import * as d3 from "d3";
 import styles from '../styles/Home.module.scss'
 import { GraphicProps } from '../customInterfaces'
 import tippy, { Instance, Props } from 'tippy.js';
+import 'tippy.js/animations/shift-away.css';
 import ReactDOMServer from 'react-dom/server';
 
 export default function Home({ data }): JSX.Element {
@@ -121,11 +122,11 @@ function Graphic(props: GraphicProps): JSX.Element {
       .attr('cx', (d) => scaleX(d.Year))
       .attr('cy', (d) => scaleY(d.Seconds))
 
-    const tippyInstanceArr: Array<Instance<Props>> = [];
     props.data.forEach(function (infos, i) {
-      tippyInstanceArr.push(tippy((svg.selectAll('circle').nodes()[i] as SVGAElement), {
+      tippy((svg.selectAll('circle').nodes()[i] as SVGAElement), {
         allowHTML: true,
         placement: 'right-end',
+        animation: 'shift-away',
         content: ReactDOMServer.renderToStaticMarkup(
           <div style={{ color: 'black', textAlign: 'left', fontSize: '1rem', backgroundColor: (infos.Doping ? 'hsla(40, 100%, 50%, 0.8)' : 'hsla(250, 100%, 50%, 0.8)'), maxWidth: '300px', padding: '3px', borderRadius: '3px' }}>
             <p style={{ margin: '0px' }}><strong>Name: </strong>{infos.Name}, {infos.Nationality}</p>
@@ -134,20 +135,17 @@ function Graphic(props: GraphicProps): JSX.Element {
             {infos.Doping && <p style={{ margin: '0px' }}>{infos.Doping}</p>}
           </div>
         )
-      }));
+      }).unmount()
     })
 
     return function () {
       svg.remove();
-      tippyInstanceArr.map(function (elem) { return elem.unmount() })
     }
+
   }, [forceRender])
 
   useEffect(function () {
-    function forceRenderFunc() {
-      setForceRender(Math.random())
-    }
-    window.addEventListener('resize', forceRenderFunc)
+    window.addEventListener('resize', ()=>setForceRender(Math.random()))
   }, [])
 
   return (
