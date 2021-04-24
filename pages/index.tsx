@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import * as d3 from "d3";
 import styles from '../styles/Home.module.scss'
 import { GraphicProps } from '../customInterfaces'
@@ -38,7 +38,7 @@ function Graphic(props: GraphicProps): JSX.Element {
   const leftLabelWidth = 45;
   const circlesRadius = 5;
 
-  useEffect(function () {
+  useLayoutEffect(function () {
 
     const svgWidth = graphicDivRef.current.offsetWidth
     const svgHeight = graphicDivRef.current.offsetHeight;
